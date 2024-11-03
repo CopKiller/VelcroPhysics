@@ -2,15 +2,18 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <PublishReadyToRun>false</PublishReadyToRun>
     <TieredCompilation>false</TieredCompilation>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\VelcroPhysics.Benchmarks\VelcroPhysics.Benchmarks.csproj" />
     <ProjectReference Include="..\VelcroPhysics.MonoGame.ContentPipelines.SVGImport\VelcroPhysics.MonoGame.Content.SVGImport.csproj" />
+    <ProjectReference Include="..\VelcroPhysics.MonoGame.ContentPipelines.TextureToVertices\VelcroPhysics.MonoGame.Content.TextureToVertices.csproj" />
     <ProjectReference Include="..\VelcroPhysics.MonoGame.DebugView\VelcroPhysics.MonoGame.DebugView.csproj" />
+    <ProjectReference Include="..\VelcroPhysics\VelcroPhysics.csproj" />
     <ProjectReference Include="..\VelcroPhysics\VelcroPhysics.MonoGame.csproj" />
   </ItemGroup>
 
