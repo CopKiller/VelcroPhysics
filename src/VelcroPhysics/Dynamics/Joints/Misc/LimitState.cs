@@ -1,10 +1,9 @@
-namespace Genbox.VelcroPhysics.Dynamics.Joints.Misc
+namespace Genbox.VelcroPhysics.Dynamics.Joints.Misc;
+
+public enum LimitState
 {
-    public enum LimitState
-    {
-        Inactive,
-        AtLower,
-        AtUpper,
-        Equal
-    }
+    Inactive,
+    AtLower,
+    AtUpper,
+    Equal
 }

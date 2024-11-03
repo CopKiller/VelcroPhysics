@@ -1,8 +1,7 @@
-namespace Genbox.VelcroPhysics.Collision.ContactSystem
+namespace Genbox.VelcroPhysics.Collision.ContactSystem;
+
+public enum ContactFeatureType : byte
 {
-    public enum ContactFeatureType : byte
-    {
-        Vertex = 0,
-        Face = 1
-    }
+    Vertex = 0,
+    Face = 1
 }

@@ -1,11 +1,10 @@
 using Genbox.VelcroPhysics.Dynamics;
 
-namespace Genbox.VelcroPhysics.Extensions.PhysicsLogics.PhysicsLogicBase
+namespace Genbox.VelcroPhysics.Extensions.PhysicsLogics.PhysicsLogicBase;
+
+public struct ShapeData
 {
-    public struct ShapeData
-    {
-        public Body Body;
-        public float Max;
-        public float Min; // absolute angles
-    }
+    public Body Body;
+    public float Max;
+    public float Min; // absolute angles
 }

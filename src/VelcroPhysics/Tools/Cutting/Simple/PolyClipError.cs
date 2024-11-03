@@ -1,10 +1,9 @@
-namespace Genbox.VelcroPhysics.Tools.Cutting.Simple
+namespace Genbox.VelcroPhysics.Tools.Cutting.Simple;
+
+public enum PolyClipError
 {
-    public enum PolyClipError
-    {
-        None,
-        DegeneratedOutput,
-        NonSimpleInput,
-        BrokenResult
-    }
+    None,
+    DegeneratedOutput,
+    NonSimpleInput,
+    BrokenResult
 }

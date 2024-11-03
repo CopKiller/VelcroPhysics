@@ -34,13 +34,14 @@
 // Future possibilities
 //   Documentation!
 
-namespace Genbox.VelcroPhysics.Tools.Triangulation.Delaunay.Polygon
-{
-    internal class PolygonPoint : TriangulationPoint
-    {
-        public PolygonPoint(double x, double y) : base(x, y) { }
+namespace Genbox.VelcroPhysics.Tools.Triangulation.Delaunay.Polygon;
 
-        public PolygonPoint Next { get; set; }
-        public PolygonPoint Previous { get; set; }
+internal class PolygonPoint : TriangulationPoint
+{
+    public PolygonPoint(double x, double y) : base(x, y)
+    {
     }
+
+    public PolygonPoint Next { get; set; }
+    public PolygonPoint Previous { get; set; }
 }

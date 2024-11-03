@@ -1,11 +1,10 @@
-namespace Genbox.VelcroPhysics.Collision.TOI
+namespace Genbox.VelcroPhysics.Collision.TOI;
+
+public enum TOIOutputState
 {
-    public enum TOIOutputState
-    {
-        Unknown,
-        Failed,
-        Overlapped,
-        Touching,
-        Seperated
-    }
+    Unknown,
+    Failed,
+    Overlapped,
+    Touching,
+    Seperated
 }

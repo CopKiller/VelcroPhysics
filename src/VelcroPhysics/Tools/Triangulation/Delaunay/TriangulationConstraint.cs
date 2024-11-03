@@ -33,15 +33,14 @@
  * Forces a triangle edge between two points p and q
  * when triangulating. For example used to enforce
  * Polygon Edges during a polygon triangulation.
- * 
+ *
  * @author Thomas Åhlén, thahlen@gmail.com
  */
 
-namespace Genbox.VelcroPhysics.Tools.Triangulation.Delaunay
+namespace Genbox.VelcroPhysics.Tools.Triangulation.Delaunay;
+
+internal class TriangulationConstraint
 {
-    internal class TriangulationConstraint
-    {
-        public TriangulationPoint P;
-        public TriangulationPoint Q;
-    }
+    public TriangulationPoint P;
+    public TriangulationPoint Q;
 }

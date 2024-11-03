@@ -1,48 +1,49 @@
 ﻿using Genbox.VelcroPhysics.Dynamics;
 
-namespace Genbox.VelcroPhysics.Utilities
+namespace Genbox.VelcroPhysics.Utilities;
+
+public static class JointHelper
 {
-    public static class JointHelper
+    public static void LinearStiffness(float frequencyHertz, float dampingRatio, Body bodyA, Body bodyB,
+        out float stiffness, out float damping)
     {
-        public static void LinearStiffness(float frequencyHertz, float dampingRatio, Body bodyA, Body bodyB, out float stiffness, out float damping)
-        {
-            float massA = bodyA.Mass;
+        var massA = bodyA.Mass;
 
-            float massB = 0;
-            
-            if (bodyB != null)
-                massB = bodyB.Mass;
+        float massB = 0;
 
-            float mass;
+        if (bodyB != null)
+            massB = bodyB.Mass;
 
-            if (massA > 0.0f && massB > 0.0f)
-                mass = massA * massB / (massA + massB);
-            else if (massA > 0.0f)
-                mass = massA;
-            else
-                mass = massB;
+        float mass;
 
-            float omega = MathConstants.TwoPi * frequencyHertz;
-            stiffness = mass * omega * omega;
-            damping = 2.0f * mass * dampingRatio * omega;
-        }
+        if (massA > 0.0f && massB > 0.0f)
+            mass = massA * massB / (massA + massB);
+        else if (massA > 0.0f)
+            mass = massA;
+        else
+            mass = massB;
 
-        public static void AngularStiffness(float frequencyHertz, float dampingRatio, Body bodyA, Body bodyB, out float stiffness, out float damping)
-        {
-            float inertiaA = bodyA.Inertia;
-            float inertiaB = bodyB.Inertia;
-            float I;
+        var omega = MathConstants.TwoPi * frequencyHertz;
+        stiffness = mass * omega * omega;
+        damping = 2.0f * mass * dampingRatio * omega;
+    }
 
-            if (inertiaA > 0.0f && inertiaB > 0.0f)
-                I = inertiaA * inertiaB / (inertiaA + inertiaB);
-            else if (inertiaA > 0.0f)
-                I = inertiaA;
-            else
-                I = inertiaB;
+    public static void AngularStiffness(float frequencyHertz, float dampingRatio, Body bodyA, Body bodyB,
+        out float stiffness, out float damping)
+    {
+        var inertiaA = bodyA.Inertia;
+        var inertiaB = bodyB.Inertia;
+        float I;
 
-            float omega = MathConstants.TwoPi * frequencyHertz;
-            stiffness = I * omega * omega;
-            damping = 2.0f * I * dampingRatio * omega;
-        }
+        if (inertiaA > 0.0f && inertiaB > 0.0f)
+            I = inertiaA * inertiaB / (inertiaA + inertiaB);
+        else if (inertiaA > 0.0f)
+            I = inertiaA;
+        else
+            I = inertiaB;
+
+        var omega = MathConstants.TwoPi * frequencyHertz;
+        stiffness = I * omega * omega;
+        damping = 2.0f * I * dampingRatio * omega;
     }
 }

@@ -1,101 +1,101 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-  <!-- This is a hack to get shared projects to output their build files in different directories -->
-  <PropertyGroup>
-    <BaseIntermediateOutputPath>obj\$(Configuration)\$(MSBuildProjectName)\</BaseIntermediateOutputPath>
-    <IntermediateOutputPath>obj\$(Configuration)\$(MSBuildProjectName)\</IntermediateOutputPath>
-    <DefaultItemExcludes>$(DefaultItemExcludes);**/obj/**;**/Content/bin/**</DefaultItemExcludes>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <Authors>Ian Qvist</Authors>
-    <Copyright>Copyright 2021, by Ian Qvist. All rights reserved.</Copyright>
-    <Description>High performance 2D collision detection system with realistic physics responses.</Description>
-
-    <!-- Set copying files etc. to timeout faster -->
-    <CopyRetryCount>2</CopyRetryCount>
-    <CopyRetryDelayMilliseconds>500</CopyRetryDelayMilliseconds>
-
-    <EnableNETAnalyzers>false</EnableNETAnalyzers>
-    <WarningLevel>0</WarningLevel>
-    <AnalysisLevel>none</AnalysisLevel>
-
-    <LangVersion>latest</LangVersion>
-    <!--<Nullable>enable</Nullable>-->
-    <EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
-    <RootNamespace>Genbox.$(MSBuildProjectName)</RootNamespace>
-    <AssemblyName>Genbox.$(MSBuildProjectName)</AssemblyName>
-    <DebugType>portable</DebugType>
-    <RepositoryType>Git</RepositoryType>
-    <PackageProjectUrl>https://github.com/Genbox/SimpleS3</PackageProjectUrl>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <Configurations>WindowsDebug;WindowsRelease;LinuxDebug;LinuxRelease</Configurations>
-
-    <!--SourceLink stuff-->
-    <PublishRepositoryUrl>true</PublishRepositoryUrl>
-    <EmbedUntrackedSources>true</EmbedUntrackedSources>
-    <IncludeSymbols>true</IncludeSymbols>
-    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="MinVer" Version="2.5.0" PrivateAssets="all"/>
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="all" />
-  </ItemGroup>
-
-  <PropertyGroup Condition="$(Configuration) == 'LinuxRelease'">
-    <DefineConstants>$(DefineConstants);RELEASE;LINUX</DefineConstants>
-    <MonoGamePlatform>Linux</MonoGamePlatform>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="$(Configuration) == 'LinuxDebug'">
-    <DefineConstants>$(DefineConstants);DEBUG;LINUX</DefineConstants>
-    <MonoGamePlatform>Linux</MonoGamePlatform>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="$(Configuration) == 'WindowsRelease'">
-    <DefineConstants>$(DefineConstants);RELEASE;WINDOWS</DefineConstants>
-    <MonoGamePlatform>Windows</MonoGamePlatform>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="$(Configuration) == 'WindowsDebug'">
-    <DefineConstants>$(DefineConstants);DEBUG;WINDOWS</DefineConstants>
-    <MonoGamePlatform>Windows</MonoGamePlatform>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="$(DefineConstants.Contains('DEBUG'))">
-    <GenerateDocumentationFile>false</GenerateDocumentationFile>
-    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="$(DefineConstants.Contains('RELEASE'))">
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
-    <Optimize>true</Optimize>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(BuildingInsideVisualStudio)' == 'true'">
-    <EnableNETAnalyzers>true</EnableNETAnalyzers>
-    <WarningLevel>5</WarningLevel>
-    <AnalysisMode>Default</AnalysisMode>
-    <AnalysisLevel>latest</AnalysisLevel>
-    <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)\Global.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-
-  <ItemGroup Condition="'$(BuildingInsideVisualStudio)' == 'true'">
-    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="5.0.3" PrivateAssets="all" />
-    <PackageReference Include="IDisposableAnalyzers" Version="3.4.13" PrivateAssets="all" />
-    <PackageReference Include="Roslynator.Analyzers" Version="3.2.0" PrivateAssets="all" />
-    <PackageReference Include="ToStringWithoutOverrideAnalyzer" Version="0.6.0" PrivateAssets="all" />
-    <PackageReference Include="ConfigureAwaitChecker.Analyzer" Version="5.0.0" PrivateAssets="all" />
-    <PackageReference Include="ErrorProne.NET.CoreAnalyzers" Version="0.4.0-beta.1" PrivateAssets="all" />
-    <PackageReference Include="ErrorProne.NET.Structs" Version="0.4.0-beta.1" PrivateAssets="all" />
-  </ItemGroup>
-
-  <Target Name="ModifyAssemblyVersion" AfterTargets="MinVer" >
+    <!-- This is a hack to get shared projects to output their build files in different directories -->
     <PropertyGroup>
-      <AssemblyVersion>$(MinVerMajor).$(MinVerMinor).$(MinVerPatch).0</AssemblyVersion>
+        <BaseIntermediateOutputPath>obj\$(Configuration)\$(MSBuildProjectName)\</BaseIntermediateOutputPath>
+        <IntermediateOutputPath>obj\$(Configuration)\$(MSBuildProjectName)\</IntermediateOutputPath>
+        <DefaultItemExcludes>$(DefaultItemExcludes);**/obj/**;**/Content/bin/**</DefaultItemExcludes>
     </PropertyGroup>
-  </Target>
+
+    <PropertyGroup>
+        <Authors>Ian Qvist</Authors>
+        <Copyright>Copyright 2021, by Ian Qvist. All rights reserved.</Copyright>
+        <Description>High performance 2D collision detection system with realistic physics responses.</Description>
+
+        <!-- Set copying files etc. to timeout faster -->
+        <CopyRetryCount>2</CopyRetryCount>
+        <CopyRetryDelayMilliseconds>500</CopyRetryDelayMilliseconds>
+
+        <EnableNETAnalyzers>false</EnableNETAnalyzers>
+        <WarningLevel>0</WarningLevel>
+        <AnalysisLevel>none</AnalysisLevel>
+
+        <LangVersion>latest</LangVersion>
+        <!--<Nullable>enable</Nullable>-->
+        <EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
+        <RootNamespace>Genbox.$(MSBuildProjectName)</RootNamespace>
+        <AssemblyName>Genbox.$(MSBuildProjectName)</AssemblyName>
+        <DebugType>portable</DebugType>
+        <RepositoryType>Git</RepositoryType>
+        <PackageProjectUrl>https://github.com/Genbox/SimpleS3</PackageProjectUrl>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <Configurations>WindowsDebug;WindowsRelease;LinuxDebug;LinuxRelease</Configurations>
+
+        <!--SourceLink stuff-->
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+        <EmbedUntrackedSources>true</EmbedUntrackedSources>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="MinVer" Version="2.5.0" PrivateAssets="all"/>
+        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="all"/>
+    </ItemGroup>
+
+    <PropertyGroup Condition="$(Configuration) == 'LinuxRelease'">
+        <DefineConstants>$(DefineConstants);RELEASE;LINUX</DefineConstants>
+        <MonoGamePlatform>Linux</MonoGamePlatform>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="$(Configuration) == 'LinuxDebug'">
+        <DefineConstants>$(DefineConstants);DEBUG;LINUX</DefineConstants>
+        <MonoGamePlatform>Linux</MonoGamePlatform>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="$(Configuration) == 'WindowsRelease'">
+        <DefineConstants>$(DefineConstants);RELEASE;WINDOWS</DefineConstants>
+        <MonoGamePlatform>Windows</MonoGamePlatform>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="$(Configuration) == 'WindowsDebug'">
+        <DefineConstants>$(DefineConstants);DEBUG;WINDOWS</DefineConstants>
+        <MonoGamePlatform>Windows</MonoGamePlatform>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="$(DefineConstants.Contains('DEBUG'))">
+        <GenerateDocumentationFile>false</GenerateDocumentationFile>
+        <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="$(DefineConstants.Contains('RELEASE'))">
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+        <Optimize>true</Optimize>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(BuildingInsideVisualStudio)' == 'true'">
+        <EnableNETAnalyzers>true</EnableNETAnalyzers>
+        <WarningLevel>5</WarningLevel>
+        <AnalysisMode>Default</AnalysisMode>
+        <AnalysisLevel>latest</AnalysisLevel>
+        <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)\Global.ruleset</CodeAnalysisRuleSet>
+    </PropertyGroup>
+
+    <ItemGroup Condition="'$(BuildingInsideVisualStudio)' == 'true'">
+        <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="5.0.3" PrivateAssets="all"/>
+        <PackageReference Include="IDisposableAnalyzers" Version="3.4.13" PrivateAssets="all"/>
+        <PackageReference Include="Roslynator.Analyzers" Version="3.2.0" PrivateAssets="all"/>
+        <PackageReference Include="ToStringWithoutOverrideAnalyzer" Version="0.6.0" PrivateAssets="all"/>
+        <PackageReference Include="ConfigureAwaitChecker.Analyzer" Version="5.0.0" PrivateAssets="all"/>
+        <PackageReference Include="ErrorProne.NET.CoreAnalyzers" Version="0.4.0-beta.1" PrivateAssets="all"/>
+        <PackageReference Include="ErrorProne.NET.Structs" Version="0.4.0-beta.1" PrivateAssets="all"/>
+    </ItemGroup>
+
+    <Target Name="ModifyAssemblyVersion" AfterTargets="MinVer">
+        <PropertyGroup>
+            <AssemblyVersion>$(MinVerMajor).$(MinVerMinor).$(MinVerPatch).0</AssemblyVersion>
+        </PropertyGroup>
+    </Target>
 
 </Project>

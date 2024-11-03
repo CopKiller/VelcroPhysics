@@ -1,7 +1,6 @@
-namespace Genbox.VelcroPhysics.Definitions
+namespace Genbox.VelcroPhysics.Definitions;
+
+public interface IDef
 {
-    public interface IDef
-    {
-        void SetDefaults();
-    }
+    void SetDefaults();
 }

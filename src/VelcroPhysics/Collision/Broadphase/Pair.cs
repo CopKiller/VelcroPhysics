@@ -1,8 +1,7 @@
-namespace Genbox.VelcroPhysics.Collision.Broadphase
+namespace Genbox.VelcroPhysics.Collision.Broadphase;
+
+internal struct Pair
 {
-    internal struct Pair
-    {
-        public int ProxyIdA;
-        public int ProxyIdB;
-    }
+    public int ProxyIdA;
+    public int ProxyIdB;
 }

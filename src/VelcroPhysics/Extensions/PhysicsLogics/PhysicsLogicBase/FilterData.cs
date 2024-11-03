@@ -1,102 +1,103 @@
 using Genbox.VelcroPhysics.Collision.Filtering;
 using Genbox.VelcroPhysics.Dynamics;
 
-namespace Genbox.VelcroPhysics.Extensions.PhysicsLogics.PhysicsLogicBase
+namespace Genbox.VelcroPhysics.Extensions.PhysicsLogics.PhysicsLogicBase;
+
+/// <summary>Contains filter data that can determine whether an object should be processed or not.</summary>
+public abstract class FilterData
 {
-    /// <summary>Contains filter data that can determine whether an object should be processed or not.</summary>
-    public abstract class FilterData
+    /// <summary>Disable the logic on specific categories. Category.None by default.</summary>
+    public Category DisabledOnCategories = Category.None;
+
+    /// <summary>Disable the logic on specific groups</summary>
+    public int DisabledOnGroup;
+
+    /// <summary>Enable the logic on specific categories Category.All by default.</summary>
+    public Category EnabledOnCategories = Category.All;
+
+    /// <summary>Enable the logic on specific groups.</summary>
+    public int EnabledOnGroup;
+
+    /// <summary></summary>
+    /// <param name="body"></param>
+    /// <returns></returns>
+    public virtual bool IsActiveOn(Body body)
     {
-        /// <summary>Disable the logic on specific categories. Category.None by default.</summary>
-        public Category DisabledOnCategories = Category.None;
+        if (body == null || !body.Enabled || body.IsStatic)
+            return false;
 
-        /// <summary>Disable the logic on specific groups</summary>
-        public int DisabledOnGroup;
+        if (body.FixtureList == null)
+            return false;
 
-        /// <summary>Enable the logic on specific categories Category.All by default.</summary>
-        public Category EnabledOnCategories = Category.All;
-
-        /// <summary>Enable the logic on specific groups.</summary>
-        public int EnabledOnGroup;
-
-        /// <summary></summary>
-        /// <param name="body"></param>
-        /// <returns></returns>
-        public virtual bool IsActiveOn(Body body)
+        foreach (var fixture in body.FixtureList)
         {
-            if (body == null || !body.Enabled || body.IsStatic)
+            //Disable
+            if (fixture.CollisionGroup == DisabledOnGroup && fixture.CollisionGroup != 0 && DisabledOnGroup != 0)
                 return false;
 
-            if (body.FixtureList == null)
+            if ((fixture.CollisionCategories & DisabledOnCategories) != Category.None)
                 return false;
 
-            foreach (Fixture fixture in body.FixtureList)
+            if (EnabledOnGroup != 0 || EnabledOnCategories != Category.All)
             {
-                //Disable
-                if ((fixture.CollisionGroup == DisabledOnGroup) && fixture.CollisionGroup != 0 && DisabledOnGroup != 0)
-                    return false;
+                //Enable
+                if (fixture.CollisionGroup == EnabledOnGroup && fixture.CollisionGroup != 0 && EnabledOnGroup != 0)
+                    return true;
 
-                if ((fixture.CollisionCategories & DisabledOnCategories) != Category.None)
-                    return false;
-
-                if (EnabledOnGroup != 0 || EnabledOnCategories != Category.All)
-                {
-                    //Enable
-                    if ((fixture.CollisionGroup == EnabledOnGroup) && fixture.CollisionGroup != 0 && EnabledOnGroup != 0)
-                        return true;
-
-                    if ((fixture.CollisionCategories & EnabledOnCategories) != Category.None &&
-                        EnabledOnCategories != Category.All)
-                        return true;
-                }
-                else
+                if ((fixture.CollisionCategories & EnabledOnCategories) != Category.None &&
+                    EnabledOnCategories != Category.All)
                     return true;
             }
-
-            return false;
+            else
+            {
+                return true;
+            }
         }
 
-        /// <summary>Adds the category.</summary>
-        /// <param name="category">The category.</param>
-        public void AddDisabledCategory(Category category)
-        {
-            DisabledOnCategories |= category;
-        }
+        return false;
+    }
 
-        /// <summary>Removes the category.</summary>
-        /// <param name="category">The category.</param>
-        public void RemoveDisabledCategory(Category category)
-        {
-            DisabledOnCategories &= ~category;
-        }
+    /// <summary>Adds the category.</summary>
+    /// <param name="category">The category.</param>
+    public void AddDisabledCategory(Category category)
+    {
+        DisabledOnCategories |= category;
+    }
 
-        /// <summary>Determines whether this body ignores the the specified controller.</summary>
-        /// <param name="category">The category.</param>
-        /// <returns><c>true</c> if the object has the specified category; otherwise, <c>false</c>.</returns>
-        public bool IsInDisabledCategory(Category category)
-        {
-            return (DisabledOnCategories & category) == category;
-        }
+    /// <summary>Removes the category.</summary>
+    /// <param name="category">The category.</param>
+    public void RemoveDisabledCategory(Category category)
+    {
+        DisabledOnCategories &= ~category;
+    }
 
-        /// <summary>Adds the category.</summary>
-        /// <param name="category">The category.</param>
-        public void AddEnabledCategory(Category category)
-        {
-            EnabledOnCategories |= category;
-        }
+    /// <summary>Determines whether this body ignores the the specified controller.</summary>
+    /// <param name="category">The category.</param>
+    /// <returns><c>true</c> if the object has the specified category; otherwise, <c>false</c>.</returns>
+    public bool IsInDisabledCategory(Category category)
+    {
+        return (DisabledOnCategories & category) == category;
+    }
 
-        /// <summary>Removes the category.</summary>
-        /// <param name="category">The category.</param>
-        public void RemoveEnabledCategory(Category category)
-        {
-            EnabledOnCategories &= ~category;
-        }
+    /// <summary>Adds the category.</summary>
+    /// <param name="category">The category.</param>
+    public void AddEnabledCategory(Category category)
+    {
+        EnabledOnCategories |= category;
+    }
 
-        /// <summary>Determines whether this body ignores the the specified controller.</summary>
-        /// <param name="category">The category.</param>
-        /// <returns><c>true</c> if the object has the specified category; otherwise, <c>false</c>.</returns>
-        public bool IsInEnabledInCategory(Category category)
-        {
-            return (EnabledOnCategories & category) == category;
-        }
+    /// <summary>Removes the category.</summary>
+    /// <param name="category">The category.</param>
+    public void RemoveEnabledCategory(Category category)
+    {
+        EnabledOnCategories &= ~category;
+    }
+
+    /// <summary>Determines whether this body ignores the the specified controller.</summary>
+    /// <param name="category">The category.</param>
+    /// <returns><c>true</c> if the object has the specified category; otherwise, <c>false</c>.</returns>
+    public bool IsInEnabledInCategory(Category category)
+    {
+        return (EnabledOnCategories & category) == category;
     }
 }

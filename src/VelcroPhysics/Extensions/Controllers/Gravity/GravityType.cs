@@ -1,8 +1,7 @@
-namespace Genbox.VelcroPhysics.Extensions.Controllers.Gravity
+namespace Genbox.VelcroPhysics.Extensions.Controllers.Gravity;
+
+public enum GravityType
 {
-    public enum GravityType
-    {
-        Linear,
-        DistanceSquared
-    }
+    Linear,
+    DistanceSquared
 }

@@ -33,54 +33,57 @@ using System;
 using Genbox.VelcroPhysics.Tools.Triangulation.Delaunay.Polygon;
 using Genbox.VelcroPhysics.Utilities;
 
-namespace Genbox.VelcroPhysics.Tools.Triangulation.Delaunay.Util
+namespace Genbox.VelcroPhysics.Tools.Triangulation.Delaunay.Util;
+
+internal class PolygonGenerator
 {
-    internal class PolygonGenerator
+    private static readonly Random _rng = new();
+
+    public static Polygon.Polygon RandomCircleSweep(double scale, int vertexCount)
     {
-        private static readonly Random _rng = new Random();
+        var radius = scale / 4;
 
-        public static Polygon.Polygon RandomCircleSweep(double scale, int vertexCount)
+        var points = new PolygonPoint[vertexCount];
+        for (var i = 0; i < vertexCount; i++)
         {
-            double radius = scale / 4;
-
-            PolygonPoint[] points = new PolygonPoint[vertexCount];
-            for (int i = 0; i < vertexCount; i++)
+            do
             {
-                do
-                {
-                    if (i % 250 == 0)
-                        radius += scale / 2 * (0.5 - _rng.NextDouble());
-                    else if (i % 50 == 0)
-                        radius += scale / 5 * (0.5 - _rng.NextDouble());
-                    else
-                        radius += 25 * scale / vertexCount * (0.5 - _rng.NextDouble());
-
-                    radius = radius > scale / 2 ? scale / 2 : radius;
-                    radius = radius < scale / 10 ? scale / 10 : radius;
-                } while (radius < scale / 10 || radius > scale / 2);
-
-                points[i] = new PolygonPoint(radius * Math.Cos(MathConstants.TwoPi * i / vertexCount), radius * Math.Sin(MathConstants.TwoPi * i / vertexCount));
-            }
-            return new Polygon.Polygon(points);
-        }
-
-        public static Polygon.Polygon RandomCircleSweep2(double scale, int vertexCount)
-        {
-            double radius = scale / 4;
-            PolygonPoint[] points = new PolygonPoint[vertexCount];
-
-            for (int i = 0; i < vertexCount; i++)
-            {
-                do
-                {
+                if (i % 250 == 0)
+                    radius += scale / 2 * (0.5 - _rng.NextDouble());
+                else if (i % 50 == 0)
                     radius += scale / 5 * (0.5 - _rng.NextDouble());
-                    radius = radius > scale / 2 ? scale / 2 : radius;
-                    radius = radius < scale / 10 ? scale / 10 : radius;
-                } while (radius < scale / 10 || radius > scale / 2);
+                else
+                    radius += 25 * scale / vertexCount * (0.5 - _rng.NextDouble());
 
-                points[i] = new PolygonPoint(radius * Math.Cos(MathConstants.TwoPi * i / vertexCount), radius * Math.Sin(MathConstants.TwoPi * i / vertexCount));
-            }
-            return new Polygon.Polygon(points);
+                radius = radius > scale / 2 ? scale / 2 : radius;
+                radius = radius < scale / 10 ? scale / 10 : radius;
+            } while (radius < scale / 10 || radius > scale / 2);
+
+            points[i] = new PolygonPoint(radius * Math.Cos(MathConstants.TwoPi * i / vertexCount),
+                radius * Math.Sin(MathConstants.TwoPi * i / vertexCount));
         }
+
+        return new Polygon.Polygon(points);
+    }
+
+    public static Polygon.Polygon RandomCircleSweep2(double scale, int vertexCount)
+    {
+        var radius = scale / 4;
+        var points = new PolygonPoint[vertexCount];
+
+        for (var i = 0; i < vertexCount; i++)
+        {
+            do
+            {
+                radius += scale / 5 * (0.5 - _rng.NextDouble());
+                radius = radius > scale / 2 ? scale / 2 : radius;
+                radius = radius < scale / 10 ? scale / 10 : radius;
+            } while (radius < scale / 10 || radius > scale / 2);
+
+            points[i] = new PolygonPoint(radius * Math.Cos(MathConstants.TwoPi * i / vertexCount),
+                radius * Math.Sin(MathConstants.TwoPi * i / vertexCount));
+        }
+
+        return new Polygon.Polygon(points);
     }
 }

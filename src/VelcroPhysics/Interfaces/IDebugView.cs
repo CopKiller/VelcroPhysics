@@ -3,11 +3,10 @@ using Genbox.VelcroPhysics.Dynamics.Joints;
 using Genbox.VelcroPhysics.Shared;
 using Microsoft.Xna.Framework;
 
-namespace Genbox.VelcroPhysics.Interfaces
+namespace Genbox.VelcroPhysics.Interfaces;
+
+public interface IDebugView
 {
-    public interface IDebugView
-    {
-        void DrawJoint(Joint joint);
-        void DrawShape(Shape shape, ref Transform transform, Color color);
-    }
+    void DrawJoint(Joint joint);
+    void DrawShape(Shape shape, ref Transform transform, Color color);
 }

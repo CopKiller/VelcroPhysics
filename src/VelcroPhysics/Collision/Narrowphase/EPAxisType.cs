@@ -1,9 +1,8 @@
-namespace Genbox.VelcroPhysics.Collision.Narrowphase
+namespace Genbox.VelcroPhysics.Collision.Narrowphase;
+
+public enum EPAxisType
 {
-    public enum EPAxisType
-    {
-        Unknown,
-        EdgeA,
-        EdgeB
-    }
+    Unknown,
+    EdgeA,
+    EdgeB
 }

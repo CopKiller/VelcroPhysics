@@ -1,10 +1,9 @@
 using System;
 
-namespace Genbox.VelcroPhysics.Extensions.PhysicsLogics.PhysicsLogicBase
+namespace Genbox.VelcroPhysics.Extensions.PhysicsLogics.PhysicsLogicBase;
+
+[Flags]
+public enum PhysicsLogicType
 {
-    [Flags]
-    public enum PhysicsLogicType
-    {
-        Explosion = 1 << 0
-    }
+    Explosion = 1 << 0
 }

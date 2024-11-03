@@ -1,9 +1,8 @@
-namespace Genbox.VelcroPhysics.Collision.Narrowphase
+namespace Genbox.VelcroPhysics.Collision.Narrowphase;
+
+public enum ManifoldType
 {
-    public enum ManifoldType
-    {
-        Circles,
-        FaceA,
-        FaceB
-    }
+    Circles,
+    FaceA,
+    FaceB
 }

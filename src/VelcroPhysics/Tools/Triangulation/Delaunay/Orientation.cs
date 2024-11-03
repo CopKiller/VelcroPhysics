@@ -29,12 +29,11 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-namespace Genbox.VelcroPhysics.Tools.Triangulation.Delaunay
+namespace Genbox.VelcroPhysics.Tools.Triangulation.Delaunay;
+
+internal enum Orientation
 {
-    internal enum Orientation
-    {
-        CW,
-        CCW,
-        Collinear
-    }
+    CW,
+    CCW,
+    Collinear
 }

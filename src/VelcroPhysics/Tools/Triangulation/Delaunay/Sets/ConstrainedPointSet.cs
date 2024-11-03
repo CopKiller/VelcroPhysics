@@ -31,69 +31,66 @@
 
 using System.Collections.Generic;
 
-namespace Genbox.VelcroPhysics.Tools.Triangulation.Delaunay.Sets
+namespace Genbox.VelcroPhysics.Tools.Triangulation.Delaunay.Sets;
+/*
+ * Extends the PointSet by adding some Constraints on how it will be triangulated<br>
+ * A constraint defines an edge between two points in the set, these edges can not
+ * be crossed. They will be enforced triangle edges after a triangulation.
+ * <p>
+ *
+ *
+ * @author Thomas Åhlén, thahlen@gmail.com
+ */
+
+internal class ConstrainedPointSet : PointSet
 {
-    /*
-     * Extends the PointSet by adding some Constraints on how it will be triangulated<br>
-     * A constraint defines an edge between two points in the set, these edges can not
-     * be crossed. They will be enforced triangle edges after a triangulation.
-     * <p>
-     * 
-     * 
-     * @author Thomas Åhlén, thahlen@gmail.com
-     */
+    private readonly List<TriangulationPoint> _constrainedPointList;
 
-    internal class ConstrainedPointSet : PointSet
+    public ConstrainedPointSet(List<TriangulationPoint> points, int[] index)
+        : base(points)
     {
-        private List<TriangulationPoint> _constrainedPointList;
+        EdgeIndex = index;
+    }
 
-        public ConstrainedPointSet(List<TriangulationPoint> points, int[] index)
-            : base(points)
+    /**
+     * @param points - A list of all points in PointSet
+     * @param constraints - Pairs of two points defining a constraint, all points
+     * <b>must</b>
+     * be part of given PointSet!
+     */
+    public ConstrainedPointSet(List<TriangulationPoint> points, IEnumerable<TriangulationPoint> constraints)
+        : base(points)
+    {
+        _constrainedPointList = new List<TriangulationPoint>();
+        _constrainedPointList.AddRange(constraints);
+    }
+
+    public int[] EdgeIndex { get; }
+
+    public override TriangulationMode TriangulationMode => TriangulationMode.Constrained;
+
+    public override void PrepareTriangulation(TriangulationContext tcx)
+    {
+        base.PrepareTriangulation(tcx);
+        if (_constrainedPointList != null)
         {
-            EdgeIndex = index;
-        }
-
-        /**
-         * 
-         * @param points - A list of all points in PointSet
-         * @param constraints - Pairs of two points defining a constraint, all points <b>must</b> be part of given PointSet!
-         */
-        public ConstrainedPointSet(List<TriangulationPoint> points, IEnumerable<TriangulationPoint> constraints)
-            : base(points)
-        {
-            _constrainedPointList = new List<TriangulationPoint>();
-            _constrainedPointList.AddRange(constraints);
-        }
-
-        public int[] EdgeIndex { get; private set; }
-
-        public override TriangulationMode TriangulationMode => TriangulationMode.Constrained;
-
-        public override void PrepareTriangulation(TriangulationContext tcx)
-        {
-            base.PrepareTriangulation(tcx);
-            if (_constrainedPointList != null)
+            TriangulationPoint p1, p2;
+            using (var iterator = _constrainedPointList.GetEnumerator())
             {
-                TriangulationPoint p1, p2;
-                using (List<TriangulationPoint>.Enumerator iterator = _constrainedPointList.GetEnumerator())
+                while (iterator.MoveNext())
                 {
-                    while (iterator.MoveNext())
-                    {
-                        p1 = iterator.Current;
-                        iterator.MoveNext();
-                        p2 = iterator.Current;
-                        tcx.NewConstraint(p1, p2);
-                    }
+                    p1 = iterator.Current;
+                    iterator.MoveNext();
+                    p2 = iterator.Current;
+                    tcx.NewConstraint(p1, p2);
                 }
             }
-            else
-            {
-                for (int i = 0; i < EdgeIndex.Length; i += 2)
-                {
-                    // XXX: must change!!
-                    tcx.NewConstraint(Points[EdgeIndex[i]], Points[EdgeIndex[i + 1]]);
-                }
-            }
+        }
+        else
+        {
+            for (var i = 0; i < EdgeIndex.Length; i += 2)
+                // XXX: must change!!
+                tcx.NewConstraint(Points[EdgeIndex[i]], Points[EdgeIndex[i + 1]]);
         }
     }
 }

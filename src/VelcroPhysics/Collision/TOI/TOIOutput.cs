@@ -1,8 +1,7 @@
-namespace Genbox.VelcroPhysics.Collision.TOI
+namespace Genbox.VelcroPhysics.Collision.TOI;
+
+public struct TOIOutput
 {
-    public struct TOIOutput
-    {
-        public TOIOutputState State;
-        public float T;
-    }
+    public TOIOutputState State;
+    public float T;
 }

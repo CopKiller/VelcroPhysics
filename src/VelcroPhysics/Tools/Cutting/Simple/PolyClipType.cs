@@ -1,9 +1,8 @@
-namespace Genbox.VelcroPhysics.Tools.Cutting.Simple
+namespace Genbox.VelcroPhysics.Tools.Cutting.Simple;
+
+internal enum PolyClipType
 {
-    internal enum PolyClipType
-    {
-        Intersect,
-        Union,
-        Difference
-    }
+    Intersect,
+    Union,
+    Difference
 }

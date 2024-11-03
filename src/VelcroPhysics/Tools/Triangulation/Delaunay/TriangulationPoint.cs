@@ -32,46 +32,45 @@
 using System.Collections.Generic;
 using Genbox.VelcroPhysics.Tools.Triangulation.Delaunay.Delaunay.Sweep;
 
-namespace Genbox.VelcroPhysics.Tools.Triangulation.Delaunay
+namespace Genbox.VelcroPhysics.Tools.Triangulation.Delaunay;
+
+internal class TriangulationPoint
 {
-    internal class TriangulationPoint
+    // List of edges this point constitutes an upper ending point (CDT)
+
+    public double X, Y;
+
+    public TriangulationPoint(double x, double y)
     {
-        // List of edges this point constitutes an upper ending point (CDT)
+        X = x;
+        Y = y;
+    }
 
-        public double X, Y;
+    public List<DTSweepConstraint> Edges { get; private set; }
 
-        public TriangulationPoint(double x, double y)
-        {
-            X = x;
-            Y = y;
-        }
+    public float Xf
+    {
+        get => (float)X;
+        set => X = value;
+    }
 
-        public List<DTSweepConstraint> Edges { get; private set; }
+    public float Yf
+    {
+        get => (float)Y;
+        set => Y = value;
+    }
 
-        public float Xf
-        {
-            get => (float)X;
-            set => X = value;
-        }
+    public bool HasEdges => Edges != null;
 
-        public float Yf
-        {
-            get => (float)Y;
-            set => Y = value;
-        }
+    public override string ToString()
+    {
+        return "[" + X + "," + Y + "]";
+    }
 
-        public bool HasEdges => Edges != null;
-
-        public override string ToString()
-        {
-            return "[" + X + "," + Y + "]";
-        }
-
-        public void AddEdge(DTSweepConstraint e)
-        {
-            if (Edges == null)
-                Edges = new List<DTSweepConstraint>();
-            Edges.Add(e);
-        }
+    public void AddEdge(DTSweepConstraint e)
+    {
+        if (Edges == null)
+            Edges = new List<DTSweepConstraint>();
+        Edges.Add(e);
     }
 }

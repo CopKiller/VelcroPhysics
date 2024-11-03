@@ -1,9 +1,8 @@
-namespace Genbox.VelcroPhysics.Dynamics.Solver
+namespace Genbox.VelcroPhysics.Dynamics.Solver;
+
+internal struct SolverData
 {
-    internal struct SolverData
-    {
-        public TimeStep Step;
-        public Position[] Positions;
-        public Velocity[] Velocities;
-    }
+    public TimeStep Step;
+    public Position[] Positions;
+    public Velocity[] Velocities;
 }

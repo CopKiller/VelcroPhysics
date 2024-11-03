@@ -1,9 +1,10 @@
 ﻿using System;
 
-namespace Genbox.VelcroPhysics.Shared.Contracts
+namespace Genbox.VelcroPhysics.Shared.Contracts;
+
+public class RequiredException : Exception
 {
-    public class RequiredException : Exception
+    public RequiredException(string message) : base(message)
     {
-        public RequiredException(string message) : base(message) { }
     }
 }

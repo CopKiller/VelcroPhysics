@@ -32,17 +32,16 @@
 using System.Collections.Generic;
 using Genbox.VelcroPhysics.Tools.Triangulation.Delaunay.Delaunay;
 
-namespace Genbox.VelcroPhysics.Tools.Triangulation.Delaunay
-{
-    internal interface Triangulatable
-    {
-        IList<TriangulationPoint> Points { get; } // MM: Neither of these are used via interface (yet?)
-        IList<DelaunayTriangle> Triangles { get; }
-        TriangulationMode TriangulationMode { get; }
-        void PrepareTriangulation(TriangulationContext tcx);
+namespace Genbox.VelcroPhysics.Tools.Triangulation.Delaunay;
 
-        void AddTriangle(DelaunayTriangle t);
-        void AddTriangles(IEnumerable<DelaunayTriangle> list);
-        void ClearTriangles();
-    }
+internal interface Triangulatable
+{
+    IList<TriangulationPoint> Points { get; } // MM: Neither of these are used via interface (yet?)
+    IList<DelaunayTriangle> Triangles { get; }
+    TriangulationMode TriangulationMode { get; }
+    void PrepareTriangulation(TriangulationContext tcx);
+
+    void AddTriangle(DelaunayTriangle t);
+    void AddTriangles(IEnumerable<DelaunayTriangle> list);
+    void ClearTriangles();
 }

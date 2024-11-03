@@ -32,45 +32,41 @@
 using System.Collections.Generic;
 using Genbox.VelcroPhysics.Tools.Triangulation.Delaunay.Delaunay;
 
-namespace Genbox.VelcroPhysics.Tools.Triangulation.Delaunay.Sets
+namespace Genbox.VelcroPhysics.Tools.Triangulation.Delaunay.Sets;
+
+internal class PointSet : Triangulatable
 {
-    internal class PointSet : Triangulatable
+    public PointSet(List<TriangulationPoint> points)
     {
-        public PointSet(List<TriangulationPoint> points)
-        {
-            Points = new List<TriangulationPoint>(points);
-        }
+        Points = new List<TriangulationPoint>(points);
+    }
 
-        public IList<TriangulationPoint> Points { get; private set; }
-        public IList<DelaunayTriangle> Triangles { get; private set; }
+    public IList<TriangulationPoint> Points { get; }
+    public IList<DelaunayTriangle> Triangles { get; private set; }
 
-        public virtual TriangulationMode TriangulationMode => TriangulationMode.Unconstrained;
+    public virtual TriangulationMode TriangulationMode => TriangulationMode.Unconstrained;
 
-        public void AddTriangle(DelaunayTriangle t)
-        {
-            Triangles.Add(t);
-        }
+    public void AddTriangle(DelaunayTriangle t)
+    {
+        Triangles.Add(t);
+    }
 
-        public void AddTriangles(IEnumerable<DelaunayTriangle> list)
-        {
-            foreach (DelaunayTriangle tri in list)
-            {
-                Triangles.Add(tri);
-            }
-        }
+    public void AddTriangles(IEnumerable<DelaunayTriangle> list)
+    {
+        foreach (var tri in list) Triangles.Add(tri);
+    }
 
-        public void ClearTriangles()
-        {
+    public void ClearTriangles()
+    {
+        Triangles.Clear();
+    }
+
+    public virtual void PrepareTriangulation(TriangulationContext tcx)
+    {
+        if (Triangles == null)
+            Triangles = new List<DelaunayTriangle>(Points.Count);
+        else
             Triangles.Clear();
-        }
-
-        public virtual void PrepareTriangulation(TriangulationContext tcx)
-        {
-            if (Triangles == null)
-                Triangles = new List<DelaunayTriangle>(Points.Count);
-            else
-                Triangles.Clear();
-            tcx.Points.AddRange(Points);
-        }
+        tcx.Points.AddRange(Points);
     }
 }

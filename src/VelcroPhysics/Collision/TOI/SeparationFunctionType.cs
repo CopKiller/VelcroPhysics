@@ -1,9 +1,8 @@
-namespace Genbox.VelcroPhysics.Collision.TOI
+namespace Genbox.VelcroPhysics.Collision.TOI;
+
+public enum SeparationFunctionType
 {
-    public enum SeparationFunctionType
-    {
-        Points,
-        FaceA,
-        FaceB
-    }
+    Points,
+    FaceA,
+    FaceB
 }

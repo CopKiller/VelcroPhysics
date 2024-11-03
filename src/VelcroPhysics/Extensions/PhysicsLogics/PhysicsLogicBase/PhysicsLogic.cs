@@ -1,24 +1,23 @@
 using Genbox.VelcroPhysics.Dynamics;
 
-namespace Genbox.VelcroPhysics.Extensions.PhysicsLogics.PhysicsLogicBase
+namespace Genbox.VelcroPhysics.Extensions.PhysicsLogics.PhysicsLogicBase;
+
+public abstract class PhysicsLogic : FilterData
 {
-    public abstract class PhysicsLogic : FilterData
+    private readonly PhysicsLogicType _type;
+    public World World;
+
+    protected PhysicsLogic(World world, PhysicsLogicType type)
     {
-        private PhysicsLogicType _type;
-        public World World;
+        _type = type;
+        World = world;
+    }
 
-        protected PhysicsLogic(World world, PhysicsLogicType type)
-        {
-            _type = type;
-            World = world;
-        }
+    public override bool IsActiveOn(Body body)
+    {
+        if (body.PhysicsLogicFilter.IsPhysicsLogicIgnored(_type))
+            return false;
 
-        public override bool IsActiveOn(Body body)
-        {
-            if (body.PhysicsLogicFilter.IsPhysicsLogicIgnored(_type))
-                return false;
-
-            return base.IsActiveOn(body);
-        }
+        return base.IsActiveOn(body);
     }
 }
