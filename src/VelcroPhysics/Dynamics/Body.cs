@@ -20,6 +20,7 @@
  * 3. This notice may not be removed or altered from any source distribution.
  */
 
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using Genbox.VelcroPhysics.Collision.ContactSystem;
@@ -130,7 +131,7 @@ public class Body
 
     /// <summary>Set the user data. Use this to store your application specific data.</summary>
     /// <value>The user data.</value>
-    public object UserData { get; set; }
+    public int UserData { get; set; }
 
     /// <summary>Gets the total number revolutions the body has made.</summary>
     /// <value>The revolutions.</value>

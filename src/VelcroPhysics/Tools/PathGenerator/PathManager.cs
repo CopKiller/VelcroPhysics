@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Genbox.VelcroPhysics.Collision.Shapes;
 using Genbox.VelcroPhysics.Dynamics;
 using Genbox.VelcroPhysics.Dynamics.Joints;
@@ -60,18 +61,19 @@ public static class PathManager
     /// <param name="userData"></param>
     /// <returns></returns>
     public static List<Body> EvenlyDistributeShapesAlongPath(World world, Path path, IEnumerable<Shape> shapes,
-        BodyType type, int copies, object? userData = null)
+        BodyType type, int copies, int userData = 0)
     {
         var centers = path.SubdivideEvenly(copies);
         var bodyList = new List<Body>();
 
+        var enumerable = shapes as Shape[] ?? shapes.ToArray();
         for (var i = 0; i < centers.Count; i++)
         {
             // copy the type from original body
             var b = BodyFactory.CreateBody(world, new Vector2(centers[i].X, centers[i].Y), centers[i].Z, type,
                 userData);
 
-            foreach (var shape in shapes) b.AddFixture(shape);
+            foreach (var shape in enumerable) b.AddFixture(shape);
 
             bodyList.Add(b);
         }
@@ -87,10 +89,9 @@ public static class PathManager
     /// <param name="copies">The copies.</param>
     /// <param name="userData">The user data.</param>
     public static List<Body> EvenlyDistributeShapesAlongPath(World world, Path path, Shape shape, BodyType type,
-        int copies, object? userData = null)
+        int copies, int userData = 0)
     {
-        var shapes = new List<Shape>(1);
-        shapes.Add(shape);
+        var shapes = new List<Shape>(1) { shape };
 
         return EvenlyDistributeShapesAlongPath(world, path, shapes, type, copies, userData);
     }

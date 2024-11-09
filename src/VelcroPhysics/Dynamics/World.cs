@@ -67,7 +67,7 @@ public class World
     private readonly Pool<Stopwatch> _timerPool = new(Stopwatch.StartNew, sw => sw.Restart(), 5, false);
 
     /// <summary>Initializes a new instance of the <see cref="World" /> class.</summary>
-    public World(Vector2 gravity)
+    protected World(Vector2 gravity)
     {
         _gravity = gravity;
         Enabled = true;
@@ -193,8 +193,7 @@ public class World
             Debug.Assert(!_bodyRemoveList.Contains(body),
                 "The body is already marked for removal. You are removing the body more than once.");
 
-            if (!_bodyRemoveList.Contains(body))
-                _bodyRemoveList.Add(body);
+            _bodyRemoveList.Add(body);
         }
         else
         {
@@ -216,8 +215,7 @@ public class World
         {
             Debug.Assert(!_jointAddList.Contains(joint), "You are adding the same joint more than once.");
 
-            if (!_jointAddList.Contains(joint))
-                _jointAddList.Add(joint);
+            _jointAddList.Add(joint);
         }
         else
         {
@@ -240,8 +238,7 @@ public class World
             Debug.Assert(!_jointRemoveList.Contains(joint),
                 "The joint is already marked for removal. You are removing the joint more than once.");
 
-            if (!_jointRemoveList.Contains(joint))
-                _jointRemoveList.Add(joint);
+            _jointRemoveList.Add(joint);
         }
         else
         {

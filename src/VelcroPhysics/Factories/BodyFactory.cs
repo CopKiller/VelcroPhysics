@@ -13,7 +13,7 @@ namespace Genbox.VelcroPhysics.Factories;
 public static class BodyFactory
 {
     public static Body CreateBody(World world, Vector2 position = new(), float rotation = 0,
-        BodyType bodyType = BodyType.Static, object userData = null)
+        BodyType bodyType = BodyType.Static, int userData = 0)
     {
         var def = new BodyDef();
         def.Position = position;
@@ -24,7 +24,7 @@ public static class BodyFactory
         return CreateFromDef(world, def);
     }
 
-    public static Body CreateEdge(World world, Vector2 start, Vector2 end, object userData = null)
+    public static Body CreateEdge(World world, Vector2 start, Vector2 end, int userData = 0)
     {
         var body = CreateBody(world);
         body.UserData = userData;
@@ -34,7 +34,7 @@ public static class BodyFactory
     }
 
     public static Body CreateChainShape(World world, Vertices vertices, Vector2 position = new(),
-        object userData = null)
+        int userData = 0)
     {
         var body = CreateBody(world, position);
         body.UserData = userData;
@@ -43,7 +43,7 @@ public static class BodyFactory
         return body;
     }
 
-    public static Body CreateLoopShape(World world, Vertices vertices, Vector2 position = new(), object userData = null)
+    public static Body CreateLoopShape(World world, Vertices vertices, Vector2 position = new(), int userData = 0)
     {
         var body = CreateBody(world, position);
         body.UserData = userData;
@@ -53,7 +53,7 @@ public static class BodyFactory
     }
 
     public static Body CreateRectangle(World world, float width, float height, float density, Vector2 position = new(),
-        float rotation = 0, BodyType bodyType = BodyType.Static, object userData = null)
+        float rotation = 0, BodyType bodyType = BodyType.Static, int userData = 0)
     {
         if (width <= 0)
             throw new ArgumentOutOfRangeException(nameof(width), "Width must be more than 0 meters");
@@ -70,7 +70,7 @@ public static class BodyFactory
     }
 
     public static Body CreateCircle(World world, float radius, float density, Vector2 position = new(),
-        BodyType bodyType = BodyType.Static, object userData = null)
+        BodyType bodyType = BodyType.Static, int userData = 0)
     {
         var body = CreateBody(world, position, 0, bodyType, userData);
         FixtureFactory.AttachCircle(radius, density, body);
@@ -78,7 +78,7 @@ public static class BodyFactory
     }
 
     public static Body CreateEllipse(World world, float xRadius, float yRadius, int edges, float density,
-        Vector2 position = new(), float rotation = 0, BodyType bodyType = BodyType.Static, object userData = null)
+        Vector2 position = new(), float rotation = 0, BodyType bodyType = BodyType.Static, int userData = 0)
     {
         var body = CreateBody(world, position, rotation, bodyType, userData);
         FixtureFactory.AttachEllipse(xRadius, yRadius, edges, density, body);
@@ -86,7 +86,7 @@ public static class BodyFactory
     }
 
     public static Body CreatePolygon(World world, Vertices vertices, float density, Vector2 position = new(),
-        float rotation = 0, BodyType bodyType = BodyType.Static, object userData = null)
+        float rotation = 0, BodyType bodyType = BodyType.Static, int userData = 0)
     {
         var body = CreateBody(world, position, rotation, bodyType, userData);
         FixtureFactory.AttachPolygon(vertices, density, body);
@@ -94,7 +94,7 @@ public static class BodyFactory
     }
 
     public static Body CreateCompoundPolygon(World world, List<Vertices> list, float density, Vector2 position = new(),
-        float rotation = 0, BodyType bodyType = BodyType.Static, object userData = null)
+        float rotation = 0, BodyType bodyType = BodyType.Static, int userData = 0)
     {
         //We create a single body
         var body = CreateBody(world, position, rotation, bodyType, userData);
@@ -104,7 +104,7 @@ public static class BodyFactory
 
     public static Body CreateGear(World world, float radius, int numberOfTeeth, float tipPercentage, float toothHeight,
         float density, Vector2 position = new(), float rotation = 0, BodyType bodyType = BodyType.Static,
-        object userData = null)
+        int userData = 0)
     {
         var gearPolygon = PolygonUtils.CreateGear(radius, numberOfTeeth, tipPercentage, toothHeight);
 
@@ -122,7 +122,7 @@ public static class BodyFactory
 
     public static Body CreateCapsule(World world, float height, float topRadius, int topEdges, float bottomRadius,
         int bottomEdges, float density, Vector2 position = new(), float rotation = 0,
-        BodyType bodyType = BodyType.Static, object userData = null)
+        BodyType bodyType = BodyType.Static, int userData = 0)
     {
         var verts = PolygonUtils.CreateCapsule(height, topRadius, topEdges, bottomRadius, bottomEdges);
 
@@ -137,7 +137,7 @@ public static class BodyFactory
     }
 
     public static Body CreateCapsule(World world, float height, float endRadius, float density,
-        Vector2 position = new(), float rotation = 0, BodyType bodyType = BodyType.Static, object userData = null)
+        Vector2 position = new(), float rotation = 0, BodyType bodyType = BodyType.Static, int userData = 0)
     {
         //Create the middle rectangle
         var rectangle = PolygonUtils.CreateRectangle(endRadius, height / 2);
@@ -162,7 +162,7 @@ public static class BodyFactory
 
     public static Body CreateRoundedRectangle(World world, float width, float height, float xRadius, float yRadius,
         int segments, float density, Vector2 position = new(), float rotation = 0, BodyType bodyType = BodyType.Static,
-        object userData = null)
+        int userData = 0)
     {
         var verts = PolygonUtils.CreateRoundedRectangle(width, height, xRadius, yRadius, segments);
 
@@ -177,7 +177,7 @@ public static class BodyFactory
     }
 
     public static Body CreateLineArc(World world, float radians, int sides, float radius, bool closed = false,
-        Vector2 position = new(), float rotation = 0, BodyType bodyType = BodyType.Static, object userData = null)
+        Vector2 position = new(), float rotation = 0, BodyType bodyType = BodyType.Static, int userData = 0)
     {
         var body = CreateBody(world, position, rotation, bodyType, userData);
         FixtureFactory.AttachLineArc(radians, sides, radius, closed, body);
@@ -185,7 +185,7 @@ public static class BodyFactory
     }
 
     public static Body CreateSolidArc(World world, float density, float radians, int sides, float radius,
-        Vector2 position = new(), float rotation = 0, BodyType bodyType = BodyType.Static, object userData = null)
+        Vector2 position = new(), float rotation = 0, BodyType bodyType = BodyType.Static, int userData = 0)
     {
         var body = CreateBody(world, position, rotation, bodyType, userData);
         FixtureFactory.AttachSolidArc(density, radians, sides, radius, body);
