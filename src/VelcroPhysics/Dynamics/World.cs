@@ -299,9 +299,14 @@ public class World
     /// </param>
     public void Step(float dt, int velocityIterations = 8, int positionIterations = 3)
     {
+        
+        //Console.WriteLine("Delta Time: " + dt);
+        
         //Velcro: We support disabling the world
         if (!Enabled)
             return;
+        
+        //Console.WriteLine("Delta Time: " + dt);
 
         //Velcro: We reuse the timers to avoid generating garbage
         var stepTimer = _timerPool.GetFromPool(true);
