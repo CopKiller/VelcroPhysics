@@ -3,6 +3,7 @@
  * Copyright (c) 2017 Ian Qvist
  */
 
+using System.Numerics;
 using Genbox.VelcroPhysics.Dynamics;
 using Genbox.VelcroPhysics.Shared;
 using Microsoft.Xna.Framework;

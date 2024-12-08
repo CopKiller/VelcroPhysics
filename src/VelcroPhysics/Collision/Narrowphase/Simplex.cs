@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.Numerics;
 using Genbox.VelcroPhysics.Collision.Distance;
 using Genbox.VelcroPhysics.Shared;
 using Genbox.VelcroPhysics.Shared.Optimization;

@@ -20,6 +20,7 @@
 
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Numerics;
 using Genbox.VelcroPhysics.Shared;
 
 namespace Genbox.VelcroPhysics.Tools.PolygonManipulation;

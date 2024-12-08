@@ -4,6 +4,7 @@
  */
 
 using System.Diagnostics;
+using System.Numerics;
 using Genbox.VelcroPhysics.Dynamics.Joints.Misc;
 using Genbox.VelcroPhysics.Dynamics.Solver;
 using Genbox.VelcroPhysics.Utilities;

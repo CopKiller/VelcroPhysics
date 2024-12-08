@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Numerics;
 using Genbox.VelcroPhysics.Dynamics;
 using Genbox.VelcroPhysics.Factories;
 using Genbox.VelcroPhysics.Shared;

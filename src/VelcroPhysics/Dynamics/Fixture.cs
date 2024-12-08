@@ -21,6 +21,7 @@
  */
 
 using System.Diagnostics;
+using System.Numerics;
 using Genbox.VelcroPhysics.Collision.Broadphase;
 using Genbox.VelcroPhysics.Collision.ContactSystem;
 using Genbox.VelcroPhysics.Collision.Filtering;

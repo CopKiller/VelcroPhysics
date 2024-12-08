@@ -22,6 +22,7 @@
 
 using System;
 using System.Diagnostics;
+using System.Numerics;
 using Genbox.VelcroPhysics.Definitions.Joints;
 using Genbox.VelcroPhysics.Dynamics.Joints.Misc;
 using Genbox.VelcroPhysics.Dynamics.Solver;

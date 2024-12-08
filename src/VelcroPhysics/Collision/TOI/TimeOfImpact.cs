@@ -22,6 +22,7 @@
 
 using System;
 using System.Diagnostics;
+using System.Numerics;
 using Genbox.VelcroPhysics.Collision.Distance;
 
 namespace Genbox.VelcroPhysics.Collision.TOI;

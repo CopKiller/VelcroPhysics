@@ -22,6 +22,7 @@
 
 using System;
 using System.Diagnostics;
+using System.Numerics;
 using Genbox.VelcroPhysics.Collision.Narrowphase;
 using Genbox.VelcroPhysics.Collision.Shapes;
 using Genbox.VelcroPhysics.Dynamics;

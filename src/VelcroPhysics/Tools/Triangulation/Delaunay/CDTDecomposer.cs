@@ -5,6 +5,7 @@
 
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Numerics;
 using Genbox.VelcroPhysics.Shared;
 using Genbox.VelcroPhysics.Tools.Triangulation.Delaunay.Delaunay.Sweep;
 using Microsoft.Xna.Framework;

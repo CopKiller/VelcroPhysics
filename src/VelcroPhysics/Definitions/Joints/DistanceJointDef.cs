@@ -1,7 +1,7 @@
+using System.Numerics;
 using Genbox.VelcroPhysics.Dynamics;
 using Genbox.VelcroPhysics.Dynamics.Joints.Misc;
 using Genbox.VelcroPhysics.Utilities;
-using Microsoft.Xna.Framework;
 
 namespace Genbox.VelcroPhysics.Definitions.Joints;
 

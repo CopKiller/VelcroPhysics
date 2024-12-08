@@ -1,4 +1,5 @@
-﻿using Genbox.VelcroPhysics.Collision.Shapes;
+﻿using System.Numerics;
+using Genbox.VelcroPhysics.Collision.Shapes;
 using Microsoft.Xna.Framework;
 
 namespace Genbox.VelcroPhysics.Definitions.Shapes;

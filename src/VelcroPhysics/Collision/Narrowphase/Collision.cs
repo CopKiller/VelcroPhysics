@@ -20,6 +20,7 @@
  * 3. This notice may not be removed or altered from any source distribution.
  */
 
+using System.Numerics;
 using Genbox.VelcroPhysics.Collision.ContactSystem;
 using Genbox.VelcroPhysics.Collision.Distance;
 using Genbox.VelcroPhysics.Collision.Shapes;

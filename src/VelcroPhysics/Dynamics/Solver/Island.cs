@@ -140,6 +140,7 @@ However, we can compute sin+cos of the same angle fast.
 
 using System;
 using System.Diagnostics;
+using System.Numerics;
 using Genbox.VelcroPhysics.Collision.ContactSystem;
 using Genbox.VelcroPhysics.Dynamics.Handlers;
 using Genbox.VelcroPhysics.Dynamics.Joints;

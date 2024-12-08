@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Numerics;
 using Genbox.VelcroPhysics.Collision.Distance;
 using Genbox.VelcroPhysics.Collision.Narrowphase;
 using Genbox.VelcroPhysics.Utilities;

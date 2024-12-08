@@ -1,4 +1,5 @@
 using System;
+using System.Numerics;
 using Genbox.VelcroPhysics.Collision.RayCast;
 using Genbox.VelcroPhysics.Utilities;
 using Microsoft.Xna.Framework;

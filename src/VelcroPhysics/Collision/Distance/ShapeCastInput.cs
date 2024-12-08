@@ -1,4 +1,5 @@
-﻿using Genbox.VelcroPhysics.Shared;
+﻿using System.Numerics;
+using Genbox.VelcroPhysics.Shared;
 using Microsoft.Xna.Framework;
 
 namespace Genbox.VelcroPhysics.Collision.Distance;

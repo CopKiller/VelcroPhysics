@@ -1,4 +1,5 @@
-﻿using Genbox.VelcroPhysics.Dynamics;
+﻿using System.Numerics;
+using Genbox.VelcroPhysics.Dynamics;
 using Microsoft.Xna.Framework;
 
 namespace Genbox.VelcroPhysics.Definitions;

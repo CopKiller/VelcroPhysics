@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Numerics;
 using Genbox.VelcroPhysics.Shared;
 using Genbox.VelcroPhysics.Tools.TextureTools;
 using Microsoft.Xna.Framework;

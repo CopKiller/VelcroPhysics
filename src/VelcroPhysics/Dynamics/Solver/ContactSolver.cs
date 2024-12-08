@@ -23,6 +23,7 @@
 
 using System;
 using System.Diagnostics;
+using System.Numerics;
 using Genbox.VelcroPhysics.Collision.ContactSystem;
 using Genbox.VelcroPhysics.Collision.Narrowphase;
 using Genbox.VelcroPhysics.Shared;
