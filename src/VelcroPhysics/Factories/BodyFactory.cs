@@ -14,7 +14,7 @@ namespace Genbox.VelcroPhysics.Factories;
 public static class BodyFactory
 {
     public static Body CreateBody(World world, Vector2 position = new(), float rotation = 0,
-        BodyType bodyType = BodyType.Static, int userData = 0)
+        BodyType bodyType = BodyType.Static, object userData = null)
     {
         var def = new BodyDef();
         def.Position = position;
