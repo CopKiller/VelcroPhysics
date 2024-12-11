@@ -1,7 +1,7 @@
 ﻿using System;
+using System.Numerics;
 using Genbox.VelcroPhysics.Collision.TOI;
 using Genbox.VelcroPhysics.Shared;
-using Microsoft.Xna.Framework;
 using Xunit;
 
 namespace Genbox.VelcroPhysics.Tests.Tests

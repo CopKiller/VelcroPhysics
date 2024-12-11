@@ -1,5 +1,5 @@
-﻿using Genbox.VelcroPhysics.Shared;
-using Microsoft.Xna.Framework;
+﻿using System.Numerics;
+using Genbox.VelcroPhysics.Shared;
 using Xunit;
 
 namespace Genbox.VelcroPhysics.Tests.Tests.Shared

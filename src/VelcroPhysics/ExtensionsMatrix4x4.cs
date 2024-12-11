@@ -17,8 +17,8 @@ public static class ExtensionsMatrix4X4
         result.M21 = -val2;
         result.M22 = val1;
     }
-    
-    public static Matrix4x4 Identity { get; } = new Matrix4x4(1f, 0f, 0f, 0f,
+
+    private static Matrix4x4 Identity { get; } = new Matrix4x4(1f, 0f, 0f, 0f,
         0f, 1f, 0f, 0f,
         0f, 0f, 1f, 0f,
         0f, 0f, 0f, 1f);

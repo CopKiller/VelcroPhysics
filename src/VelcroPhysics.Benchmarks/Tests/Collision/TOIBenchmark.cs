@@ -1,4 +1,5 @@
-﻿using BenchmarkDotNet.Attributes;
+﻿using System.Numerics;
+using BenchmarkDotNet.Attributes;
 using Genbox.VelcroPhysics.Benchmarks.Code;
 using Genbox.VelcroPhysics.Collision.Distance;
 using Genbox.VelcroPhysics.Collision.Shapes;

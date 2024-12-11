@@ -1,6 +1,6 @@
-﻿using BenchmarkDotNet.Attributes;
+﻿using System.Numerics;
+using BenchmarkDotNet.Attributes;
 using Genbox.VelcroPhysics.Benchmarks.Code;
-using Vector2 = Microsoft.Xna.Framework.Vector2;
 
 namespace Genbox.VelcroPhysics.Benchmarks.Tests.Primitives
 {
