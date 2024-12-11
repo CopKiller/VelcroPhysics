@@ -20,8 +20,6 @@
 * 3. This notice may not be removed or altered from any source distribution. 
 */
 
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Numerics;
 using Genbox.VelcroPhysics.Collision.Broadphase;
@@ -29,14 +27,13 @@ using Genbox.VelcroPhysics.Collision.ContactSystem;
 using Genbox.VelcroPhysics.Collision.Distance;
 using Genbox.VelcroPhysics.Collision.RayCast;
 using Genbox.VelcroPhysics.Collision.TOI;
-using Genbox.VelcroPhysics.Dynamics.Handlers;
+using Genbox.VelcroPhysics.Dynamics.Events;
 using Genbox.VelcroPhysics.Dynamics.Joints;
 using Genbox.VelcroPhysics.Dynamics.Joints.Misc;
 using Genbox.VelcroPhysics.Dynamics.Solver;
 using Genbox.VelcroPhysics.Extensions.Controllers.ControllerBase;
 using Genbox.VelcroPhysics.Shared;
 using Genbox.VelcroPhysics.Utilities;
-using Microsoft.Xna.Framework;
 
 namespace Genbox.VelcroPhysics.Dynamics
 {
@@ -77,32 +74,10 @@ namespace Genbox.VelcroPhysics.Dynamics
         internal bool _newContacts;
         internal bool _isLocked;
 
-        /// <summary>Fires whenever a body has been added</summary>
-        public event BodyHandler BodyAdded;
-
-        /// <summary>Fires whenever a body has been removed</summary>
-        public event BodyHandler BodyRemoved;
-
-        /// <summary>Fires every time a controller is added to the World.</summary>
-        public event ControllerHandler ControllerAdded;
-
-        /// <summary>Fires every time a controller is removed form the World.</summary>
-        public event ControllerHandler ControllerRemoved;
-
-        /// <summary>Fires whenever a fixture has been added</summary>
-        public event FixtureHandler FixtureAdded;
-
-        /// <summary>Fires whenever a fixture has been removed</summary>
-        public event FixtureHandler FixtureRemoved;
-
-        /// <summary>Fires whenever a joint has been added</summary>
-        public event JointHandler JointAdded;
-
-        /// <summary>Fires whenever a joint has been removed</summary>
-        public event JointHandler JointRemoved;
+        private readonly IWorldVelcroEvents _events;
 
         /// <summary>Initializes a new instance of the <see cref="World" /> class.</summary>
-        public World(Vector2 gravity)
+        public World(Vector2 gravity, IWorldVelcroEvents events)
         {
             _gravity = gravity;
             _enabled = true;
@@ -120,6 +95,8 @@ namespace Genbox.VelcroPhysics.Dynamics
             _rayCastCallbackWrapper = RayCastCallbackWrapper;
 
             _contactManager = new ContactManager(new DynamicTreeBroadPhase());
+            
+            _events = events;
         }
 
         public bool ContinuousPhysicsEnabled
@@ -199,8 +176,7 @@ namespace Genbox.VelcroPhysics.Dynamics
             {
                 Debug.Assert(!_bodyAddList.Contains(body), "You are adding the same body more than once.");
 
-                if (!_bodyAddList.Contains(body))
-                    _bodyAddList.Add(body);
+                _bodyAddList.Add(body);
             }
             else
             {
@@ -288,8 +264,7 @@ namespace Genbox.VelcroPhysics.Dynamics
 
             controller.World = this;
             _controllerList.Add(controller);
-
-            ControllerAdded?.Invoke(controller);
+            _events.ControllerAdded(controller);
         }
 
         public void RemoveController(Controller controller)
@@ -301,7 +276,7 @@ namespace Genbox.VelcroPhysics.Dynamics
             {
                 _controllerList.Remove(controller);
 
-                ControllerRemoved?.Invoke(controller);
+                _events.ControllerRemoved(controller);
             }
         }
 
@@ -592,7 +567,7 @@ namespace Genbox.VelcroPhysics.Dynamics
 
         internal void RaiseNewFixtureEvent(Fixture fixture)
         {
-            FixtureAdded?.Invoke(fixture);
+            _events.FixtureAdded(fixture);
         }
 
         private void ProcessRemovedJoints()
@@ -1204,7 +1179,7 @@ namespace Genbox.VelcroPhysics.Dynamics
                 }
             }
 
-            JointAdded?.Invoke(joint);
+            _events.JointAdded(joint);
 
             // Note: creating a joint doesn't wake the bodies.
         }
@@ -1274,7 +1249,7 @@ namespace Genbox.VelcroPhysics.Dynamics
                 }
             }
 
-            JointRemoved?.Invoke(joint);
+            _events.JointRemoved(joint);
         }
 
         private void AddBodyInternal(Body body)
@@ -1285,12 +1260,11 @@ namespace Genbox.VelcroPhysics.Dynamics
             _bodyList.Add(body);
 
             //Velcro: We have events to notify the user that a body was added
-            BodyAdded?.Invoke(body);
+            _events.BodyAdded(body);
 
             //Velcro: We have events to notify fixtures was added
-            if (FixtureAdded != null)
-                for (int i = 0; i < body._fixtureList.Count; i++)
-                    FixtureAdded(body._fixtureList[i]);
+            for (int i = 0; i < body._fixtureList.Count; i++) 
+                _events.FixtureAdded(body._fixtureList[i]);
         }
 
         private void RemoveBodyInternal(Body body)
@@ -1327,7 +1301,7 @@ namespace Genbox.VelcroPhysics.Dynamics
                 Fixture fixture = body._fixtureList[i];
 
                 //Velcro: Added event
-                FixtureRemoved?.Invoke(fixture);
+                _events.FixtureRemoved(fixture);
 
                 fixture.DestroyProxies(_contactManager.BroadPhase);
                 fixture.Destroy();
@@ -1343,7 +1317,7 @@ namespace Genbox.VelcroPhysics.Dynamics
             // Remove world body list.
             _bodyList.Remove(body);
 
-            BodyRemoved?.Invoke(body);
+            _events.BodyRemoved(body);
         }
 
         private void ProcessChanges()
