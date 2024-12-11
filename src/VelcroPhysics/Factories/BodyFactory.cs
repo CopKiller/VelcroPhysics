@@ -214,11 +214,11 @@ public static class BodyFactory
         world.AddBreakableBody(breakableBody);
         return breakableBody;
     }
-
-    public static Body CreateFromDef(World world, BodyDef def)
+    
+    public static Body CreateFromDef(World world, BodyDef def, bool delayUntilNextStep = false)
     {
         var body = new Body(def);
-        world.AddBody(body);
+        world.AddBody(body, delayUntilNextStep);
         return body;
     }
 }
