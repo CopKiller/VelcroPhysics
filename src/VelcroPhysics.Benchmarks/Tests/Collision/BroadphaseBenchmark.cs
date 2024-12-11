@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Numerics;
 using BenchmarkDotNet.Attributes;
 using Genbox.VelcroPhysics.Benchmarks.Code;
 using Genbox.VelcroPhysics.Benchmarks.Utilities;

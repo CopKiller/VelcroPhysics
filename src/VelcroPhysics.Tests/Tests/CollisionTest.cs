@@ -1,7 +1,7 @@
-﻿using Genbox.VelcroPhysics.Collision.Shapes;
+﻿using System.Numerics;
+using Genbox.VelcroPhysics.Collision.Shapes;
 using Genbox.VelcroPhysics.Shared;
 using Genbox.VelcroPhysics.Utilities;
-using Microsoft.Xna.Framework;
 using Xunit;
 
 namespace Genbox.VelcroPhysics.Tests.Tests
